@@ -16,7 +16,7 @@ int KChFstate::key_state[6]={0,0,0,0,0,0}; // нажата-отжата
 int KChFstate::key_cycle_counter[6]={0,0,0,0,0,0}; // Сколько ещё циклов нельзя менять состояние клавиши
 
 #ifdef _DEBUG
-void KCOnTick(int state);
+void KCOnTick(int state) {}
 #else
 static void KCOnTick(int state){}; // Если не отладка, то функция пуста
 #endif
