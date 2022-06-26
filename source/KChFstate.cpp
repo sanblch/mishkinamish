@@ -202,6 +202,9 @@ void KChFstate::MM_KeyDown(int i)
 		
 		if(0xFF00==key_to_press[i]) // левая
 			input.mi.dwFlags=MOUSEEVENTF_LEFTDOWN;
+		else if (0xFF02 == key_to_press[i]) {// средняя
+			input.mi.dwFlags = MOUSEEVENTF_MIDDLEDOWN;
+		}
 		else
 			input.mi.dwFlags=MOUSEEVENTF_RIGHTDOWN;
 	}
@@ -236,6 +239,9 @@ void KChFstate::MM_KeyUp(int i)
 				
 		if(0xFF00==key_to_press[i]) // левая
 			input.mi.dwFlags=MOUSEEVENTF_LEFTUP;
+		if (0xFF02 == key_to_press[i]) { // средняя
+			input.mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
+		}
 		else
 			input.mi.dwFlags=MOUSEEVENTF_RIGHTUP;
 	}

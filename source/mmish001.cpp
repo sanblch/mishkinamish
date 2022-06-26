@@ -47,7 +47,7 @@ typedef struct
 	WORD value;
 } MHWORDChar;
 
-#define MH_NUM_SCANCODES 105
+#define MH_NUM_SCANCODES 106
 
 // Здесь нет PrtScr,Pause
 #ifdef MMISH_ENGLISH
@@ -102,7 +102,7 @@ MHWORDChar dlg_scancodes[MH_NUM_SCANCODES]=
 	{L"Num +",0x4E},{L"Num Enter",0xE01C},{L"(Num . - запрещена)",0xFFFF},{L"Num 0",0x52},{L"Num 1",0x4F}, // 90-94
 	{L"Num 2",0x50},{L"Num 3",0x51},{L"Num 4",0x4B},{L"Num 5",0x4C},{L"Num 6",0x4D}, // 95-99
 	{L"Num 7",0x47},{L"Num 8",0x48},{L"Num 9",0x49}, // 100-102
-	{L"Левая мышь",0xFF00},{L"Правая мышь",0xFF01}
+	{L"Левая мышь",0xFF00},{L"Правая мышь",0xFF01},{L"Средняя мышь",0xFF02}
 }; 
 #endif
 
@@ -437,41 +437,9 @@ static BOOL CALLBACK DlgWndProc(HWND hdwnd,
 		switch(LOWORD(wparam))
 		{
 		case IDCANCEL:
-			int exit_result;
-			// Вопрос задаём, только если были изменения. То есть любая тренировка после сохранения или загрузки
-			// Иначе просто выходим
-			if(!flag_model_changed)
-			{
-				UnregisterHotKey(hdwnd, 1); // В 3 местах
-				PostQuitMessage(0); 
-				return (1);
-			}
-
-			// были изменения, возможно, их лучше сохранить
-#ifdef MMISH_ENGLISH
-			exit_result = MessageBox(NULL, L"Save what it was trained?", L"Save what it was trained?",  MB_YESNOCANCEL | MB_ICONQUESTION);
-#else
-			exit_result = MessageBox(NULL, L"Сохранить натренированное?", L"Сохранить натренированное?",  MB_YESNOCANCEL | MB_ICONQUESTION);
-#endif
-			switch(exit_result)
-			{
-			case IDYES:
-				UnregisterHotKey(hdwnd, 1); // В 3 местах
-				model.Save(false,hdwnd,L"default.MM1");
-				PostQuitMessage(0); // Ибо мы теперь немодальные
-				break;
-
-			case IDNO:
-				UnregisterHotKey(hdwnd, 1); // В 3 местах
-				PostQuitMessage(0); // Ибо мы теперь немодальные
-				break;
-
-			case IDCANCEL:
-				break;
-			}
-			// Рудимент от модального диалога
-			//EndDialog(hdwnd,2);
-			return 1;
+			UnregisterHotKey(hdwnd, 1); // В 3 местах
+			PostQuitMessage(0); 
+			return (1);
 
 		case IDOK:
 			// Активация / деактивация
