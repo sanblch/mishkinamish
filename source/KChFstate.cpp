@@ -200,13 +200,15 @@ void KChFstate::MM_KeyDown(int i)
 	{
 		input.type=INPUT_MOUSE;
 		
-		if(0xFF00==key_to_press[i]) // левая
-			input.mi.dwFlags=MOUSEEVENTF_LEFTDOWN;
+		if (0xFF00 == key_to_press[i]) { // левая
+			input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+		}
+		else if (0xFF01 == key_to_press[i]) {// правая
+			input.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
+		}
 		else if (0xFF02 == key_to_press[i]) {// средняя
 			input.mi.dwFlags = MOUSEEVENTF_MIDDLEDOWN;
 		}
-		else
-			input.mi.dwFlags=MOUSEEVENTF_RIGHTDOWN;
 	}
 	else // клавиатура
 	{
@@ -237,13 +239,15 @@ void KChFstate::MM_KeyUp(int i)
 	{
 		input.type=INPUT_MOUSE;
 				
-		if(0xFF00==key_to_press[i]) // левая
-			input.mi.dwFlags=MOUSEEVENTF_LEFTUP;
-		if (0xFF02 == key_to_press[i]) { // средняя
+		if (0xFF00 == key_to_press[i]) { // левая
+			input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+		}
+		else if (0xFF01 == key_to_press[i]) { // правая
+			input.mi.dwFlags = MOUSEEVENTF_RIGHTUP;
+		}
+		else if (0xFF02 == key_to_press[i]) { // средняя
 			input.mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
 		}
-		else
-			input.mi.dwFlags=MOUSEEVENTF_RIGHTUP;
 	}
 	else // клавиатура
 	{
